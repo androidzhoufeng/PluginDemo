@@ -1,2 +1,2 @@
-include ':app', ':zfplugin'
+include ':app', ':zfplugin', ':replugin', ':repluginhost'
 rootProject.name='PluginDemo'
