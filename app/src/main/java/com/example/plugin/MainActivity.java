@@ -3,6 +3,8 @@ package com.example.plugin;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName("com.example.zfplugin",
+                        "com.example.zfplugin.MainActivity"));
+                startActivity(intent);
 
             }
         });

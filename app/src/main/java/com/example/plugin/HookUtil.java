@@ -68,8 +68,8 @@ public class HookUtil {
 
                                 // 替换
                                 Intent proxyIntent = new Intent();
-                                proxyIntent.setClassName("com.enjoy.leo_plugin",
-                                        "com.enjoy.leo_plugin.ProxyActivity");
+                                proxyIntent.setClassName("com.example.plugin",
+                                        "com.example.plugin.ProxyActivity");
 
                                 proxyIntent.putExtra(TARGET_INTENT, intent);
 

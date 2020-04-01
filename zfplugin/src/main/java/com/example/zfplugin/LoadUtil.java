@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 
 public class LoadUtil {
 
-    private final static String apkPath = "/sdcard/plugin-debug.apk";
+    private final static String apkPath = "/sdcard/zfplugin-debug.apk";
 
 
     private static Resources mResources;
