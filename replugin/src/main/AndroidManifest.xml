@@ -12,7 +12,7 @@
         <!--声明其插件别名-->
         <meta-data
             android:name="com.qihoo360.plugin.name"
-            android:value="replugin" />
+            android:value="replugin-debug" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

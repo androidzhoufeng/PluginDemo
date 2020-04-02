@@ -5,12 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/btnLoadBean"
+        android:id="@+id/btnLoadPlugin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="加载插件普通类" />
+        android:text="加载插件" />
+
+    <TextView
+        android:id="@+id/btnUninstallPlugin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="卸载插件" />
+    <TextView
+        android:id="@+id/btnJumpActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="启动加载插件Activity" />
 
 </LinearLayout>

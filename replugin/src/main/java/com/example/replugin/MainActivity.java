@@ -1,13 +1,13 @@
 package com.example.replugin;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import com.qihoo360.replugin.loader.a.PluginActivity;
 
 /**
  * 360插件
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends PluginActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

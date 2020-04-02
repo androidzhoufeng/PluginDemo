@@ -14,24 +14,31 @@ import java.io.File;
  */
 
 public class LoadUtil {
-    private final static String apkPath = "/sdcard/replugin-debug.apk";
+    public final static String apkPath = "/sdcard/replugin-debug.apk";
 
     public static Boolean installPlugin() {
+
+        if (RePlugin.isPluginInstalled("replugin-debug")) {
+            Toast.makeText(HostApplication.getContext(), "插件已安装", Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
         File pluginFile = new File(apkPath);
         //文件不存在就返回
-        if (!pluginFile.exists()){
-            Toast.makeText(HostApplication.getContext(),"插件不存在",Toast.LENGTH_SHORT).show();
+        if (!pluginFile.exists()) {
+            Toast.makeText(HostApplication.getContext(), "插件不存在", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         PluginInfo pluginInfo = RePlugin.install(apkPath);
 
-        if (pluginInfo == null){
-            Toast.makeText(HostApplication.getContext(),"插件加载失败",Toast.LENGTH_SHORT).show();
+        if (pluginInfo == null) {
+            Toast.makeText(HostApplication.getContext(), "插件加载失败", Toast.LENGTH_SHORT).show();
             return false;
         }
         RePlugin.preload(pluginInfo);
-        Toast.makeText(HostApplication.getContext(),"插件加载成功",Toast.LENGTH_SHORT).show();
+        Toast.makeText(HostApplication.getContext(), "插件加载成功", Toast.LENGTH_SHORT).show();
         return true;
     }
 }
