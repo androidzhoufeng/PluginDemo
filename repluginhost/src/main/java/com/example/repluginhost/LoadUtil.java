@@ -14,13 +14,15 @@ import java.io.File;
  */
 
 public class LoadUtil {
+    /**
+     * 插件的存储路径
+     */
     public final static String apkPath = "/sdcard/replugin-debug.apk";
 
     public static Boolean installPlugin() {
 
         if (RePlugin.isPluginInstalled("replugin-debug")) {
             Toast.makeText(HostApplication.getContext(), "插件已安装", Toast.LENGTH_SHORT).show();
-
             return true;
         }
 

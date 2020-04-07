@@ -12,68 +12,58 @@ import dalvik.system.DexClassLoader;
  */
 public class LoadUtil {
 
-
     private final static String apkPath = "/sdcard/zfplugin-debug.apk";
 
     public static void loadClass(Context context) {
-
         try {
-            // dalvik/system/DexPathList.java
-            // 2.dexElements 的 Field 对象 --》只与类相关，和对象不相关
-            Class<?> clazz = Class.forName("dalvik.system.DexPathList");
-            Field dexElementsField = clazz.getDeclaredField("dexElements");
-            dexElementsField.setAccessible(true);
-
-            // 4.pathList 的 Field 对象
+            // 1.获取 BaseDexClassLoader 类的 DexPathList 属性（对象名为：pathList）
             Class<?> baseClassLoaderClass = Class.forName("dalvik.system.BaseDexClassLoader");
             Field pathListField = baseClassLoaderClass.getDeclaredField("pathList");
             pathListField.setAccessible(true);
 
-            // 5.BaseDexClassLoader  的类的对象
-            // 宿主 -- 类加载器  -- PathClassLoader
+            // dalvik/system/DexPathList.java
+            // 2.获取 DexPathList 类的 Element[] 属性（对象名为：dexElements）
+            Class<?> clazz = Class.forName("dalvik.system.DexPathList");
+            Field dexElementsField = clazz.getDeclaredField("dexElements");
+            dexElementsField.setAccessible(true);
+
+            // 3.获取宿主 -- 类加载器  -- PathClassLoader
             ClassLoader hostClassLoader = context.getClassLoader();
 
-            // 3.DexPathList 的类的对象
+            // 4.获取宿主的 DexPathList 属性的值：pathList
             Object hostPathList = pathListField.get(hostClassLoader);
 
-            // 宿主 、 插件
-            // 1.目的：dexElements 的对象
+            // 5.目的一：获取宿主的 dexElements 属性的值：dexElements
             Object[] hostDexElements = (Object[]) dexElementsField.get(hostPathList);
 
 
-            // 5.BaseDexClassLoader  的类的对象
-            // 插件 -- 类加载器  -- PathClassLoader
+            // 6.BaseDexClassLoader  的类的对象
+            // new 一个 DexClassLoader 作为插件的类加载器
             ClassLoader pluginClassLoader = new DexClassLoader(apkPath,
                     context.getCacheDir().getAbsolutePath(), null, hostClassLoader);
 
-
-            // 3.DexPathList 的类的对象
+            // 7.获取插件的 DexPathList 属性的值：pathList
             Object pluginPathList = pathListField.get(pluginClassLoader);
 
-            // 宿主 、 插件
-            // 1.目的：dexElements 的对象
+            // 8.目的二：获取插件的 dexElements 属性的值：dexElements
             Object[] pluginDexElements = (Object[]) dexElementsField.get(pluginPathList);
 
 
-            // 创建一个新的数组  Element  --> new Element[]
+            // 9.创建一个新的数组  Element  --> new Element[]
             Object[] newElement = (Object[]) Array.newInstance(
                     hostDexElements.getClass().getComponentType(),
                     hostDexElements.length + pluginDexElements.length);
 
-            // 赋值
+            // 10.把插件和数组的 hostDexElements、pluginDexElements 的值都赋值到新数组 newElement中
             System.arraycopy(hostDexElements, 0, newElement,
                     0, hostDexElements.length);
             System.arraycopy(pluginDexElements, 0,
                     newElement, hostDexElements.length, pluginDexElements.length);
 
-            // 宿主里面的 dexElements
-            // hostDexElements = newElement;
+            // 11. 把新数组赋值到宿主的 DexPathList 的 dexElementsField 属性上
             dexElementsField.set(hostPathList, newElement);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-
 }

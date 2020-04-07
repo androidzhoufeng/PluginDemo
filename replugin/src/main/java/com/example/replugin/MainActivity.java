@@ -1,6 +1,7 @@
 package com.example.replugin;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.qihoo360.replugin.loader.a.PluginActivity;
 
@@ -13,5 +14,12 @@ public class MainActivity extends PluginActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        findViewById(R.id.btnPrint).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestUtils.print();
+            }
+        });
     }
 }
